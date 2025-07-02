@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNetControllerApiBoilerPlate.Infrastructure.Composition;
 
-internal static class PostgresDbContext
+internal static class DatabaseServiceExtensions
 {
     public static IServiceCollection AddPostgresDbContext(this IServiceCollection services,
         IConfiguration configuration)
