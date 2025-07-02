@@ -5,9 +5,9 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 
 RUN dotnet tool install -g dotnet-aspnet-codegenerator
 
-WORKDIR /app/Server
+WORKDIR /app
 
-COPY Server.csproj .
+COPY AspNetControllerApiBoilerPlate.csproj .
 
 RUN dotnet restore
 

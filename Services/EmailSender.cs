@@ -5,6 +5,7 @@ namespace Server.Services;
 
 public class EmailSender(IConfiguration configuration) : IEmailSender
 {
+    // TODO: Create a method at the start of the app to ensure every required credentials are defined
     private readonly string _smtpPort = configuration["Smtp:Port"] ??
                                         throw new Exception(
                                             "SMTP Port is not defined in appsettings.<environment>.json");
