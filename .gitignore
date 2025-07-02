@@ -1,0 +1,37 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# VSCode settings
+.vscode/
+
+# ASP.NET Scaffolding
+.scaffolding/
+
+# Local db
+*.mdf
+*.ldf
+*.db
+*.sqlite
+
+# Environment
+.env
+secrets.json
+
+# Rider
+.idea/
+*.sln.iml
+
+# Ignore all appsettings.*.json files
+appsettings.*.json
+
+# Except for appsettings.Example.json
+!appsettings.Example.json

@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+RUN dotnet tool install -g dotnet-aspnet-codegenerator
+
+WORKDIR /app/Server
+
+COPY Server.csproj .
+
+RUN dotnet restore
+
+COPY . .
+
+RUN dotnet dev-certs https --trust
+
+EXPOSE 7264
+
+CMD [ "dotnet", "watch", "-lp", "https" ]
