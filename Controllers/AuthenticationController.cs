@@ -1,12 +1,12 @@
+using AspNetControllerApiBoilerPlate.DTOs.User;
+using AspNetControllerApiBoilerPlate.Models;
+using AspNetControllerApiBoilerPlate.Services;
+using AspNetControllerApiBoilerPlate.Services.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Server.DTOs.User;
-using Server.Models;
-using Server.Services;
-using Server.Services.Authentication;
 
-namespace Server.Controllers
+namespace AspNetControllerApiBoilerPlate.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

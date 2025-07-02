@@ -1,7 +1,7 @@
 using System.Net.Mail;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace Server.Services;
+namespace AspNetControllerApiBoilerPlate.Services;
 
 public class EmailSender(IConfiguration configuration) : IEmailSender
 {

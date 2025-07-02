@@ -1,6 +1,5 @@
-using Server.Composition;
-using Server.Models;
-using Server.Services;
+using AspNetControllerApiBoilerPlate.Composition;
+using AspNetControllerApiBoilerPlate.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.EnsureStartupConfigurationValidation(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddPostgresDbContext(builder.Configuration);

@@ -1,12 +1,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using AspNetControllerApiBoilerPlate.DTOs.User;
+using AspNetControllerApiBoilerPlate.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Server.DTOs.User;
-using Server.Models;
 
-namespace Server.Services.Authentication;
+namespace AspNetControllerApiBoilerPlate.Services.Authentication;
 
 public class AuthenticationService(
     SignInManager<User> signInManager,

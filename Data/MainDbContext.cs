@@ -1,8 +1,8 @@
+using AspNetControllerApiBoilerPlate.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Server.Models;
 
-namespace Server.Data;
+namespace AspNetControllerApiBoilerPlate.Data;
 
 public class MainDbContext(DbContextOptions<MainDbContext> options)
     : IdentityDbContext<User>(options)

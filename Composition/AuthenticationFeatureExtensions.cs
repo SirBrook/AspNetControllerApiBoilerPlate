@@ -1,12 +1,12 @@
 using System.Security.Cryptography;
+using AspNetControllerApiBoilerPlate.Data;
+using AspNetControllerApiBoilerPlate.Models;
+using AspNetControllerApiBoilerPlate.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Server.Data;
-using Server.Models;
-using Server.Services.Authentication;
 
-namespace Server.Composition;
+namespace AspNetControllerApiBoilerPlate.Composition;
 
 internal static class AuthenticationFeatureExtensions
 {

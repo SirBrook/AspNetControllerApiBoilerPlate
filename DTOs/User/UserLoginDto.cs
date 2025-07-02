@@ -1,6 +1,6 @@
 using Microsoft.Build.Framework;
 
-namespace Server.DTOs.User;
+namespace AspNetControllerApiBoilerPlate.DTOs.User;
 
 public class UserLoginDto
 {
