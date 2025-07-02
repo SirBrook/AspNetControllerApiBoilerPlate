@@ -1,5 +1,6 @@
-using AspNetControllerApiBoilerPlate.Composition;
-using AspNetControllerApiBoilerPlate.Services;
+using AspNetControllerApiBoilerPlate.Infrastructure;
+using AspNetControllerApiBoilerPlate.Infrastructure.Composition;
+using AspNetControllerApiBoilerPlate.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

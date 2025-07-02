@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace AspNetControllerApiBoilerPlate.Models;
+namespace AspNetControllerApiBoilerPlate.Infrastructure.Persistence.Entities;
 
 public class User : IdentityUser
 {

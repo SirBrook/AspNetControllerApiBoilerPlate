@@ -10,7 +10,7 @@
 	},
 	"runArgs": [
 		"--name=aspnet-api-boilerplate",
-		"--network=shared-postgres-network"
+		"--network=shared_postgres"
 	]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

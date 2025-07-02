@@ -1,6 +1,6 @@
-using Microsoft.Build.Framework;
+using System.ComponentModel.DataAnnotations;
 
-namespace AspNetControllerApiBoilerPlate.DTOs.User;
+namespace AspNetControllerApiBoilerPlate.Application.DTOs.User;
 
 public class UserRegisterDto
 {

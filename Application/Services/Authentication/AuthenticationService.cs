@@ -1,22 +1,46 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using AspNetControllerApiBoilerPlate.DTOs.User;
-using AspNetControllerApiBoilerPlate.Models;
+using AspNetControllerApiBoilerPlate.Application.DTOs.User;
+using AspNetControllerApiBoilerPlate.Infrastructure;
+using AspNetControllerApiBoilerPlate.Infrastructure.Persistence.Entities;
+using AspNetControllerApiBoilerPlate.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AspNetControllerApiBoilerPlate.Services.Authentication;
+namespace AspNetControllerApiBoilerPlate.Application.Services.Authentication;
 
 public class AuthenticationService(
     SignInManager<User> signInManager,
-    UserManager<User> userManager,
+    UserRepository userRepository,
     IConfiguration configuration,
     EmailSender emailSender)
 {
+    public async Task RegisterUserAsync(UserRegisterDto userRegisterDto, IUrlHelper url, string requestScheme)
+    {
+        var user = new User
+        {
+            FirstName = userRegisterDto.FirstName,
+            LastName = userRegisterDto.LastName,
+            Email = userRegisterDto.Email,
+            UserName = userRegisterDto.Email
+        };
+        var createUserResponse = await userRepository.CreateAsync(user, userRegisterDto.Password);
+
+        var emailValidationToken = await userRepository.GenerateEmailConfirmationTokenAsync(user);
+
+        var callbackUrl = url.Action("ConfirmEmail", "Authentication",
+            new { userId = user.Id, code = emailValidationToken },
+            protocol: requestScheme);
+
+        await emailSender.SendEmailAsync(user.Email, "Confirm your account",
+            "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+    }
+
     public async Task<User?> LogUserInByEmailAsync(UserLoginDto userLoginDto)
     {
-        var user = await userManager.FindByEmailAsync(userLoginDto.Email);
+        var user = await userRepository.FindByEmailAsync(userLoginDto.Email);
         if (user == null) return null;
 
         var checkPasswordResult = await signInManager.CheckPasswordSignInAsync(user, userLoginDto.Password, false);
@@ -25,6 +49,8 @@ public class AuthenticationService(
             ? null
             : user;
     }
+
+    // TODO: Write methods (see controller)
 
     public string GenerateJwtToken(User user)
     {
@@ -58,7 +84,7 @@ public class AuthenticationService(
 
     public async Task GenerateTwoFactorTokenAndSendItToUserViaEmailAsync(User user)
     {
-        var a2FValidationCode = await userManager.GenerateTwoFactorTokenAsync(user, "Email");
+        var a2FValidationCode = await userRepository.GenerateTwoFactorTokenAsync(user, "Email");
 
         await emailSender.SendEmailAsync(user.Email!, "2AF: Validation token",
             $"Here's your token to log in the application: <b>{a2FValidationCode}</b>");
@@ -66,6 +92,6 @@ public class AuthenticationService(
 
     public async Task<bool> VerifyTwoFactorTokenAsync(User user, string tokenToVerify)
     {
-        return await userManager.VerifyTwoFactorTokenAsync(user, "Email", tokenToVerify);
+        return await userRepository.VerifyTwoFactorTokenAsync(user, "Email", tokenToVerify);
     }
 }

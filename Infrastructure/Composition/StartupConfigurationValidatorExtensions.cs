@@ -1,6 +1,6 @@
-using AspNetControllerApiBoilerPlate.Services.Startup;
+using AspNetControllerApiBoilerPlate.Application.Services.Startup;
 
-namespace AspNetControllerApiBoilerPlate.Composition;
+namespace AspNetControllerApiBoilerPlate.Infrastructure.Composition;
 
 public static class StartupConfigurationValidatorExtensions
 {

@@ -1,7 +1,7 @@
-using AspNetControllerApiBoilerPlate.Data;
+using AspNetControllerApiBoilerPlate.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspNetControllerApiBoilerPlate.Composition;
+namespace AspNetControllerApiBoilerPlate.Infrastructure.Composition;
 
 internal static class PostgresDbContext
 {

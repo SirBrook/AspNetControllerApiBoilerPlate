@@ -1,6 +1,4 @@
-using AspNetControllerApiBoilerPlate.Composition;
-
-namespace AspNetControllerApiBoilerPlate.Services.Startup;
+namespace AspNetControllerApiBoilerPlate.Application.Services.Startup;
 
 public class ConfigurationValidationService(IConfiguration configuration) : IStartupConfigurationValidator
 {

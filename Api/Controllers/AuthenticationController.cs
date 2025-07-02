@@ -1,44 +1,24 @@
-using AspNetControllerApiBoilerPlate.DTOs.User;
-using AspNetControllerApiBoilerPlate.Models;
-using AspNetControllerApiBoilerPlate.Services;
-using AspNetControllerApiBoilerPlate.Services.Authentication;
+using AspNetControllerApiBoilerPlate.Application.DTOs.User;
+using AspNetControllerApiBoilerPlate.Application.Services.Authentication;
+using AspNetControllerApiBoilerPlate.Infrastructure.Persistence.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AspNetControllerApiBoilerPlate.Controllers
+namespace AspNetControllerApiBoilerPlate.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController(
         UserManager<User> userManager,
-        AuthenticationService authenticationService,
-        EmailSender emailSender)
+        AuthenticationService authenticationService)
         : ControllerBase
     {
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegisterDto userRegisterDto)
         {
-            var user = new User
-            {
-                FirstName = userRegisterDto.FirstName,
-                LastName = userRegisterDto.LastName,
-                Email = userRegisterDto.Email,
-                UserName = userRegisterDto.Email
-            };
-            var createUserResponse = await userManager.CreateAsync(user, userRegisterDto.Password);
-            if (!createUserResponse.Succeeded) return BadRequest(createUserResponse.Errors);
-
-            var emailValidationToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
-
-            var callbackUrl = Url.Action("ConfirmEmail", "Authentication",
-                new { userId = user.Id, code = emailValidationToken },
-                protocol: Request.Scheme);
-
-
-            await emailSender.SendEmailAsync(user.Email, "Confirm your account",
-                "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            await authenticationService.RegisterUserAsync(userRegisterDto, Url, Request.Scheme);
 
             return Ok("The app is working fine");
         }
